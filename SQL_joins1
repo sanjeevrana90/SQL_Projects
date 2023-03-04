@@ -1,0 +1,69 @@
+-- date sets employees_data, department_data, locations_data, region_data, job_data
+
+SELECT * FROM employees_data
+SELECT * FROM department_data
+SELECT * FROM job_data
+SELECT * FROM region_data
+SELECT * FROM locations_data
+
+-- Find the count of employees that have a salary greater than the average salary of department_id 30 
+
+
+SELECT COUNT(*)
+FROM employees_data
+WHERE Salary > (SELECT AVG(salary)
+FROM employees_data
+WHERE department_id = 30)
+
+-- Find the average salary of employees who work at the Executive department_id
+
+SELECT AVG(salary)
+FROM employees_data ed
+JOIN department_data dd
+ON ed.department_id = dd.department_id
+WHERE dd.department_name in ('Executive') 
+
+-- Find the count of employees that have a salary greater than the average salary of shipping department and doesn't include those who are having job_title as President
+
+SELECT COUNT(*) FROM employees_data WHERE Salary >
+(
+SELECT AVG(salary)
+FROM employees_data ed
+JOIN department_data dd
+ON ed.department_id = dd.department_id
+JOIN job_data jd
+ON ed.job_id = jd.job_id
+WHERE dd.department_name in ('Shipping') AND jd.job_title NOT IN ('President')
+)
+
+-- Filter all those employees who work at US
+
+SELECT *
+FROM employees_data ed
+JOIN department_data dd
+ON ed.department_id = dd.department_id
+JOIN locations_data ld
+ON dd.location_id = ld.location_id
+WHERE ld.country_id = 'US'
+
+-- Find the Country wise average salary
+
+SELECT ld.Country_id, AVG(salary)
+FROM employees_data ed
+JOIN department_data dd
+ON ed.department_id = dd.department_id
+JOIN locations_data ld
+ON dd.location_id = ld.location_id
+GROUP BY country_id
+
+In this SQL query exercise, I have used various types of SQL joins to extract data from multiple tables in a database.
+
+First, we used a subquery to find the count of employees whose salary is greater than the average salary of department_id 30.
+
+Then, we used a simple join to find the average salary of employees who work in the Executive department.
+
+Next, we used a complex join to find the count of employees who have a salary greater than the average salary of the shipping department, excluding those who have a job title of President.
+
+We also filtered employees who work in the US using another join statement.
+
+Lastly, we used a group by clause to find the country-wise average salary of employees by joining multiple tables.
