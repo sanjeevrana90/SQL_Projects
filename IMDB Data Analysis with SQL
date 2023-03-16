@@ -1,0 +1,154 @@
+Q1
+
+SELECT Category, Year, COUNT(Title)
+FROM (
+SELECT Title, Year, Revenue_millions,
+CASE
+    WHEN Revenue_millions > 300 THEN 'Blockbuster'
+    WHEN Revenue_millions BETWEEN 200 AND 299.99 THEN 'Superhit'
+    WHEN Revenue_millions BETWEEN 100 AND 199.99 THEN 'Hit'
+    ELSE 'Normal'
+END AS 'Category'
+FROM imdb_movies) A
+GROUP BY 1,2
+ORDER BY 2
+
+Q2
+SELECT Category, Year, SUM(Revenue_millions)
+FROM (
+SELECT Title, Year, Revenue_millions,
+CASE
+    WHEN Revenue_millions > 300 THEN 'Blockbuster'
+    WHEN Revenue_millions BETWEEN 200 AND 299.99 THEN 'Superhit'
+    WHEN Revenue_millions BETWEEN 100 AND 199.99 THEN 'Hit'
+    ELSE 'Normal'
+END AS 'Category'
+FROM imdb_movies) A
+GROUP BY 1,2
+ORDER BY 2
+
+Q3
+
+SELECT Recommendation, COUNT(title)
+FROM (
+SELECT title, Rating, Revenue_millions, Year,
+CASE
+    WHEN Rating >= 8 THEN 'Must_watch'
+    WHEN Rating BETWEEN 6 AND 7.9 THEN 'Can_watch'
+    WHEN Rating < 6 THEN 'Avoid'
+END AS 'Recommendation'
+FROM imdb_movies) A
+GROUP BY 1
+
+Q4
+
+SELECT SUM(Rev)
+FROM (
+SELECT year, Genre, Rating, sum(Revenue_millions) Rev
+FROM imdb_movies
+WHERE Rating < 7 AND Genre = 'Drama' AND year = 2016
+GROUP BY 1,2,3) A
+
+Assignmet 1
+
+SELECT title, Revenue_millions*100/(
+SELECT SUM(Revenue_millions) FROM imdb_movies
+WHERE Genre = 'Action' AND Year = 2012) RevCont
+FROM imdb_movies
+WHERE title = 'The Avengers'
+
+Assignment 2
+
+SELECT Genre, SUM(Revenue_millions)*100/(
+SELECT SUM(Revenue_millions) FROM imdb_movies
+WHERE Year = 2016) RevCont
+FROM imdb_movies
+WHERE Genre = 'Comedy' AND Year = 2016
+
+Assignment 3
+
+SELECT MAX(A.TotRev)
+FROM (SELECT Genre, SUM(Revenue_millions) TotRev FROM imdb_movies
+WHERE Year IN (2014, 2015, 2016)
+GROUP BY 1) A
+
+
+Assignment 4
+
+SELECT Director, AVG(Rating)
+FROM imdb_movies
+GROUP BY 1
+ORDER BY 2 DESC
+
+or
+
+SELECT MAX(A.AvgRat)
+FROM(
+	SELECT Director, AVG(Rating) AvgRat
+	FROM imdb_movies
+	GROUP BY 1) A
+
+Assignment 5
+
+SELECT COUNT(title)
+FROM imdb_movies
+WHERE Revenue_millions > (
+	SELECT MAX(A.Revenue_millions)
+	FROM(
+		SELECT title, Revenue_millions
+		FROM imdb_movies
+		WHERE Genre = 'Adventure') A)
+
+Assignment 6 
+
+SELECT COUNT(title)
+FROM imdb_movies
+WHERE Rating > (
+	SELECT MAX(A.Rating)
+	FROM(
+		SELECT title, Rating
+		FROM imdb_movies
+		WHERE Year = 2015) A)
+
+Assignment 7
+
+SELECT title, Revenue_millions
+FROM imdb_movies
+WHERE Rating > (SELECT MAX(A.Rating)
+    FROM(
+    SELECT title, Rating
+    FROM imdb_movies
+    WHERE Year = 2015) A)
+AND Revenue_millions > (SELECT MAX(A.Revenue_millions)
+    FROM(
+        SELECT title, Genre, Revenue_millions
+        FROM imdb_movies
+        WHERE Genre = 'Comedy') A)
+ORDER BY 2
+
+Assignment 8
+
+SELECT COUNT(title)
+FROM(
+SELECT Im.title, Im.Year, Revenue_millions, AnnualRev, (Im.Revenue_millions*100/NewDB.AnnualRev) PercRev
+FROM imdb_movies Im
+JOIN (
+SELECT Year, SUM(Revenue_millions) AnnualRev
+FROM imdb_movies
+GROUP BY 1) NewDB
+ON Im.Year = NewDB.Year
+HAVING PercRev > 10) B
+
+Assignment 9
+
+SELECT COUNT(title)
+FROM(
+SELECT Im.title, Im.Genre, Revenue_millions, AnnualRev, (Im.Revenue_millions*100/NewDB.AnnualRev) PercRev
+FROM imdb_movies Im
+JOIN (
+SELECT Genre, SUM(Revenue_millions) AnnualRev
+FROM imdb_movies
+GROUP BY 1) NewDB
+ON Im.Genre = NewDB.Genre
+HAVING PercRev > 5
+)B
