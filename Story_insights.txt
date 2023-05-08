@@ -1,0 +1,19 @@
+## **"Sound Insights: Using SQL to Understand Customer Preferences and Music Trends.”**
+
+Once upon a time, there was a music store that catered to a diverse group of music enthusiasts. The store had a vast collection of albums, tracks, and artists from various genres, ranging from classical to contemporary.
+
+To better serve their customers, the store's management team used SQL queries to extract valuable insights from their data. They discovered that Rock Music was particularly popular among their customers, and they wanted to learn more.
+
+Using SQL query 1, the team was able to identify all the Rock Music listeners by their email, first name, last name, and genre. They ordered the list alphabetically by email starting with A. This information helped them better understand their customer base and target their marketing efforts more effectively.
+
+As the team dug deeper, they wanted to identify the top Rock bands and invite them to perform in the store. Using SQL query 2, they were able to identify the top 10 Rock bands based on the number of tracks they had written. The team discovered that these artists had a significant following among their customers, and they decided to invite them for a live performance.
+
+The team was also interested in understanding the song lengths of their tracks. Using SQL query 3, they identified all the tracks with song lengths longer than the average song length. The team ordered the list by the song length, with the longest songs listed first. This helped the team identify popular tracks that could be used for in-store promotions or played during live performances.
+
+To better understand their customer's preferences, the team used SQL query 4 to determine how much each customer had spent on their favorite artists. The query returned the customer's name, artist name, and total amount spent. The team used this information to personalize their marketing efforts and suggest new artists that customers may enjoy.
+
+The team also wanted to identify the most popular music genres for each country. Using SQL query 5, they determined the most popular genre for each country based on the amount of purchase. In some cases, multiple genres shared the highest amount of purchase. The team used this information to curate music collections that catered to each country's preferences.
+
+Finally, the team used SQL query 6 to determine the customer that had spent the most on music for each country. The query returned the country, the top customer, and how much they had spent. In some cases, multiple customers had spent the same amount, and the team provided a list of all customers who had spent this amount. This information helped the team better understand their customers' purchasing behavior and personalize their marketing efforts accordingly.
+
+In the end, the music store's management team was able to extract valuable insights from their data using SQL queries. They used this information to improve their marketing strategies, curate music collections, and provide personalized recommendations to their customers.
